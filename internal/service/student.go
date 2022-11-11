@@ -22,13 +22,17 @@ func (s *StudentService) CreateStudent(ctx context.Context, req *pb.CreateStuden
 		Id:   req.Id,
 		Name: req.Name,
 	})
+	if err != nil {
+		panic(err)
+	}
 	return &pb.CreateStudentReply{
 		Code: "创建成功",
-		Msg:  fmt.Sprintf("id:%v,name:%v,err:%v", r.Id, r.Name, err.Error()),
+		Msg:  fmt.Sprintf("id:%v,name:%v", r.Id, r.Name),
 	}, nil
 }
+
 func (s *StudentService) GetStudent(ctx context.Context, req *pb.GetStudentRequest) (*pb.GetStudentReply, error) {
-	r, err := s.GetStudent(ctx, &pb.GetStudentRequest{
+	r, err := s.uc.GetStudent(ctx, &biz.Student{
 		Id: req.Id,
 	})
 	if err != nil {

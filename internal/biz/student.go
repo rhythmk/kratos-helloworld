@@ -33,3 +33,8 @@ func (uc *StudentUsercase) CreateStudent(ctx context.Context, stu *Student) (*St
 	uc.log.WithContext(ctx).Infof("CreateStudent: %v", stu.Id)
 	return uc.repo.Create(ctx, stu)
 }
+
+func (uc *StudentUsercase) GetStudent(ctx context.Context, stu *Student) (*Student, error) {
+	uc.log.WithContext(ctx).Infof("GetStudent: %v", stu.Id)
+	return uc.repo.Get(ctx, int64(stu.Id))
+}

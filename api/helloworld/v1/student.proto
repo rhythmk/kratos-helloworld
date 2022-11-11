@@ -22,7 +22,7 @@ service Student {
 
 message CreateStudentRequest {
 	uint64 id =1;
-	string name =2;
+	string name =2; // [(validate.rules).string = {min_len : 5, max_len: 50}];
 }
 message CreateStudentReply {
 	string  code=1;
