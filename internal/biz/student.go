@@ -7,12 +7,16 @@ import (
 )
 
 type Student struct {
-	Id   uint64
-	Name string
+	Id   uint64 `gorm:"column:id"                json:"id"                 compare:"Id"`
+	Name string `gorm:"column:name"                json:"name"                 compare:"Name"`
+}
+
+func (t *Student) TableName() string {
+	return "student"
 }
 
 type StudentRepo interface {
-	Get(context.Context, *Student) (*Student, error)
+	Get(context.Context, int64) (*Student, error)
 	Create(context.Context, *Student) (*Student, error)
 }
 

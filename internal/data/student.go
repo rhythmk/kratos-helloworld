@@ -21,10 +21,15 @@ func NewStudentRepo(data *Data, logger log.Logger) biz.StudentRepo {
 	}
 }
 
-func (r *studentRepo) Get(ctx context.Context, g *biz.Student) (*biz.Student, error) {
-	return g, nil
+func (r *studentRepo) Get(ctx context.Context, id int64) (*biz.Student, error) {
+	var stu biz.Student
+	r.data.gormDB.Where("id=?", id).First(&stu)
+	r.log.WithContext(ctx).Info("gormDB: GetStudent, id: ", id)
+	return &stu, nil
 }
 
 func (r *studentRepo) Create(ctx context.Context, g *biz.Student) (*biz.Student, error) {
-	return g, nil
+	result := r.data.gormDB.Save(g)
+	r.log.WithContext(ctx).Info("gormDB: Create, id: ", g.Id)
+	return g, result.Error
 }
