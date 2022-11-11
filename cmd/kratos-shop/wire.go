@@ -1,3 +1,4 @@
+//go:build wireinject
 // +build wireinject
 
 // The build tag makes sure the stub is not built in the final build.
@@ -5,11 +6,12 @@
 package main
 
 import (
-	"kratos-helloworld/internal/biz"
-	"kratos-helloworld/internal/conf"
-	"kratos-helloworld/internal/data"
-	"kratos-helloworld/internal/server"
-	"kratos-helloworld/internal/service"
+	"kratos-shop/internal/biz"
+	"kratos-shop/internal/conf"
+	"kratos-shop/internal/data"
+	"kratos-shop/internal/server"
+	"kratos-shop/internal/service"
+
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"

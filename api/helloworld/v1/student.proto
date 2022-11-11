@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package api.helloworld.v1;
+
+option go_package = "kratos-shop/api/helloworld/v1;v1";
+import "google/api/annotations.proto";
+
+service Student {
+	rpc CreateStudent (CreateStudentRequest) returns (CreateStudentReply){
+		option (google.api.http) = {
+			post: "/student/v1/create"
+			body: "*"
+		  };
+	}
+	
+	rpc GetStudent (GetStudentRequest) returns (GetStudentReply){
+		option (google.api.http) = {
+			get: "/student/v1/get/{id}"
+		  };
+	}
+}
+
+message CreateStudentRequest {
+	uint64 id =1;
+	string name =2;
+}
+message CreateStudentReply {
+	string  code=1;
+	string  msg=2;
+}
+message GetStudentRequest {
+	uint64 id =1;
+}
+message GetStudentReply {
+	uint64 id =1;
+	string name =2;
+}
+

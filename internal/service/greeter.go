@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	v1 "kratos-helloworld/api/helloworld/v1"
-	"kratos-helloworld/internal/biz"
+	v1 "kratos-shop/api/helloworld/v1"
+	"kratos-shop/internal/biz"
 )
 
 // GreeterService is a greeter service.
