@@ -27,7 +27,7 @@ type CreateStudentRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	Id   uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"` // [(validate.rules).string = {min_len : 5, max_len: 50}];
 }
 
 func (x *CreateStudentRequest) Reset() {
