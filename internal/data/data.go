@@ -2,6 +2,7 @@ package data
 
 import (
 	"kratos-shop/internal/conf"
+	"kratos-shop/pkg/trace"
 	"time"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -23,12 +24,13 @@ func NewGormDB(c *conf.Data, logger log.Logger) (*Data, func(), error) {
 	cleanup := func() {
 		log.NewHelper(logger).Info("closing the data resources")
 	}
+
 	dsn := c.Database.Source
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, cleanup, err
 	}
-
+	db.Set("gorm:table_options", "CHARSET=utf8mb4")
 	sqlDB, err := db.DB()
 	if err != nil {
 		return nil, cleanup, err
@@ -36,6 +38,8 @@ func NewGormDB(c *conf.Data, logger log.Logger) (*Data, func(), error) {
 	sqlDB.SetMaxIdleConns(50)
 	sqlDB.SetMaxOpenConns(150)
 	sqlDB.SetConnMaxLifetime(time.Second * 25)
+
+	db.Use(&trace.TracePlugin{})
 	return &Data{db: db}, cleanup, err
 }
 
